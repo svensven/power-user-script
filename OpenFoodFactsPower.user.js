@@ -589,20 +589,20 @@ textarea.monospace {
                         '">DDG</a>]');
             // Link to Open Beauty Facts
             var obfLink = 'https://world.openbeautyfacts.org/product/' + code;
-            productExists("https://cors-anywhere.herokuapp.com/"+obfLink,"#obfLinkStatus","","");
+            //productExists("https://cors-anywhere.herokuapp.com/"+obfLink,"#obfLinkStatus","","");
             $("#barcode_paragraph")
                 .append(' <span id="obfLink" class="productLink">[<a href="' + obfLink +
                         '">obf.org</a>] (<span id="obfLinkStatus"></span>)');
             // Link to Open Pet Food Facts
             var opffLink = 'https://world.openpetfoodfacts.org/product/' + code;
-            productExists("https://cors-anywhere.herokuapp.com/"+opffLink,"#opffLinkStatus","","");
+            //productExists("https://cors-anywhere.herokuapp.com/"+opffLink,"#opffLinkStatus","","");
             $("#barcode_paragraph")
                 .append(' <span id="opffLink" class="productLink">[<a href="' + opffLink +
                         '">opff.org</a>] (<span id="opffLinkStatus"></span>)');
             // Link to .pro.openfoodfacts.dev
             //var proDevLink = 'https://off:off@world.pro.openfoodfacts.dev/product/' + code;
             var proDevLink = 'https://world.pro.openfoodfacts.dev/product/' + code;
-            productExists("https://cors-anywhere.herokuapp.com/"+proDevLink,"#proDevLinkStatus","off","off");
+            //productExists("https://cors-anywhere.herokuapp.com/"+proDevLink,"#proDevLinkStatus","off","off");
             $("#barcode_paragraph")
                 .append(' <span id="devProPlatform" class="productLink">[<a href="' + proDevLink +
                         '">.pro.off.dev</a>] (<span id="proDevLinkStatus"></span>)');
