@@ -595,12 +595,15 @@ textarea.monospace {
             $("#barcode_paragraph")
                 .append(' <span id="duckLink" class="productLink">[<a href="' + duckLink +
                         '">DDG</a>]');
+            /*
             // Link to Open Beauty Facts
             var obfLink = 'https://world.openbeautyfacts.org/product/' + code;
             productExists("https://cors-anywhere.herokuapp.com/"+obfLink,"#obfLinkStatus","","");
             $("#barcode_paragraph")
                 .append(' <span id="obfLink" class="productLink">[<a href="' + obfLink +
                         '">obf.org</a>] (<span id="obfLinkStatus"></span>)');
+            */
+            /*
             // Link to Open Pet Food Facts
             var opffLink = 'https://world.openpetfoodfacts.org/product/' + code;
             productExists("https://cors-anywhere.herokuapp.com/"+opffLink,"#opffLinkStatus","","");
@@ -614,6 +617,7 @@ textarea.monospace {
             $("#barcode_paragraph")
                 .append(' <span id="devProPlatform" class="productLink">[<a href="' + proDevLink +
                         '">.pro.off.dev</a>] (<span id="proDevLinkStatus"></span>)');
+            */
 
             // https://fr.openfoodfacts.org/etat/marques-a-completer/code/506036745xxxx&json=1
             var sameBrandProductsJSON = sameBrandProductsURL + "&json=1";
