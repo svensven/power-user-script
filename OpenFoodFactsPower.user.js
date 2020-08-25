@@ -369,6 +369,16 @@ input.show_comparison {
     border-radius: 0 10px 10px 0;
 }
 
+#ing_jump {
+    position:fixed;
+    left:0%;
+    top:9rem;
+    padding:0 0.7rem 0 0.7rem;
+    font-size:1.5rem;
+    background-color:red;
+    border-radius: 0 10px 10px 0;
+}
+
 /* Let nutrition image as tall as Nutrition facts table */
 #nutrition_image_copy {
     width: 80%;
@@ -700,6 +710,16 @@ textarea.monospace {
                 Copydata();
                 submitToPopup(analyse_form);
             });
+
+            //Jump to ingredients
+            $('body').append('<button id="ing_jump">Ingredients jump</button>');
+            $("#ing_jump").click(function(){
+                let active_lang = $("#tabs_ingredients_image li.active").attr('data-language');
+                if (active_lang) {
+                    $("#ingredients_" + active_lang + "_image_full")[0].scrollIntoView();
+                }
+            });
+
         }
 
 
