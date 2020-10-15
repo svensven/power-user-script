@@ -1213,10 +1213,12 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                                  '</div>'
                                   );
                 $( this ).append('<div  class="p_actions">'+
+/*
                                  '<button class="ingr_del" title="Immediate deletion, be careful." '+
                                  ' id="p_actions_del_'+local_code+'" value="'+local_code+'">'+
                                  'Delete'+
                                  '</button>'+
+*/
                                  '<button class="ingr_sav" title="Save this field." '+
                                  ' id="p_actions_sav_'+local_code+'" value="'+local_code+'">'+
                                  'Save'+
@@ -1231,6 +1233,7 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                                  'Analysis'+
                                  '</button>'+
 
+/*
                                  "<button title=\"Move to open beauty\" "+
                                  ' id="p_actions_obf_'+local_code+'" value="'+local_code+'">'+
                                  '->OBF'+
@@ -1245,6 +1248,7 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                                  ' id="p_actions_opff_'+local_code+'" value="'+local_code+'">'+
                                  '->OPetFF'+
                                  '</button>'+
+*/
 
                                  '</div>');
 
