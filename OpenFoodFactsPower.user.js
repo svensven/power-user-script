@@ -1084,7 +1084,7 @@ textarea.monospace {
         }
 
         //As target language can be different from the page language we have to create the full URL
-        var URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl";
+        var URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
         console.log("CopyListData() analyse url="+URL);
         analyse_form.action = URL;
         //analyse_form.setAttribute("action", URL);
@@ -1120,7 +1120,7 @@ textarea.monospace {
         }
 
         //As target language can be different from the page language we have to create the full URL
-        var URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl";
+        var URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
         //analyse_form.setAttribute("action", "/cgi/test_ingredients_analysis.pl");
         console.log("Copydata() analyse url="+URL);
         analyse_form.setAttribute("action", URL);
@@ -1129,7 +1129,8 @@ textarea.monospace {
 
     function submitToPopup(f) {
         console.log("submitToPopup");
-        var w = window.open('', 'form-target', 'width=800','height=800');
+        //var w = window.open('', 'form-target', 'width=800','height=800');
+        var w = window.open('', 'form-target', 'width=623','height=950');
         f.target = 'form-target';
         f.submit();
     }
