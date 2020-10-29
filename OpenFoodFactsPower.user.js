@@ -994,6 +994,7 @@ textarea.monospace {
 .save_needs_clicking { background-color: #ff952b; }
 .p_actions > button { margin: 0 0 0 0; padding: 0.3rem 0.1rem 0.3rem 0.1rem; width: 6rem; }
 .ingr_del { background-color: #ff2c2c; }
+.ingr_replace { background-color: #805cff; }
 ._lang { position: absolute; top:3rem; right:16px; font-size:3rem; opacity:0.4; }
 
 #timed_alert, div.timed_alert { position:fixed; top:0; right:0; font-size: 8rem }
@@ -1203,6 +1204,12 @@ textarea.monospace {
                                  '</div>'
                                   );
                 $( this ).append('<div  class="p_actions">'+
+
+                                 '<button class="ingr_replace" title="Replace common bad characters/spellings." '+
+                                 ' id="p_actions_replace_'+local_code+'" value="'+local_code+'">'+
+                                 'Replace'+
+                                 '</button>'+
+
 /*
                                  '<button class="ingr_del" title="Immediate deletion, be careful." '+
                                  ' id="p_actions_del_'+local_code+'" value="'+local_code+'">'+
@@ -1273,6 +1280,20 @@ textarea.monospace {
                             $("#timed_alert_" + _code).addClass('failed');
                             $("#timed_alert_" + _code).fadeOut(3000, function () { $(this).remove(); });
                         });
+                });
+
+                // Search+Replace in ingredients
+                $("#p_actions_replace_"+local_code).click(function(){
+                    var _code = $(this).attr("value");
+                    var _ingr_text = $("#i" + _code).val();
+                    var _ingr_text_new = _ingr_text
+                        .replace(/ﬁ/g, 'fi')
+                        .replace(/ﬂ/g, 'fl')
+                    ;
+                    if (_ingr_text_new !== _ingr_text) {
+                        $("#i" + _code).val(_ingr_text_new);
+                        $("#p_actions_sav_" + _code).addClass("save_needs_clicking");
+                    }
                 });
 
                 // Save ingredients
