@@ -19,7 +19,7 @@
 // @exclude     https://hunger.openfoodfacts.org/*
 // @exclude     https://monitoring.openfoodfacts.org/*
 // @icon        http://world.openfoodfacts.org/favicon.ico
-// @updateURL   https://github.com/openfoodfacts/power-user-script/raw/master/OpenFoodFactsPower.user.js
+// @updateURL   https://github.com/svensven/power-user-script/raw/currently-using/OpenFoodFactsPower.user.js
 // @grant       GM_getResourceText
 // @require     http://code.jquery.com/jquery-latest.min.js
 // @require     http://code.jquery.com/ui/1.12.1/jquery-ui.min.js
