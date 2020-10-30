@@ -448,6 +448,9 @@ textarea.monospace {
 .ul[id^='products_'].search_results a.textarea_link { display: inline; height: unset; width: unset; }
 a.textarea_link { margin: 0; padding: 0 0.25rem 0 0.25rem; font-family: Consolas, Lucida Console, monospace; }
 
+/* shrink "we need your help" panel on ingredients analysis */
+p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
+
 `;
 
     // apply custom CSS
