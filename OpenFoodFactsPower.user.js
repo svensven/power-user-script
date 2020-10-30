@@ -1305,6 +1305,9 @@ a.textarea_link { margin: 0; padding: 0 0.25rem 0 0.25rem; font-family: Consolas
                     var _ingr_text_new = _ingr_text
                         .replace(/ﬁ/g, 'fi')
                         .replace(/ﬂ/g, 'fl')
+                        //.replace(/([,:.]\s?|sea )slat([,).\]]|$)/g, '$1salt$2')
+                        //.replace(/([,:.]\s?|sea )SLAT([,).\]]|$)/g, '$1SALT$2')
+                        //.replace(/ kernal /g, ' kernel ')
                     ;
                     if (_ingr_text_new !== _ingr_text) {
                         $("#i" + _code).val(_ingr_text_new);
