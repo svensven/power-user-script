@@ -24,6 +24,7 @@
 // @require     http://code.jquery.com/jquery-latest.min.js
 // @require     http://code.jquery.com/ui/1.12.1/jquery-ui.min.js
 // @require     https://cdn.jsdelivr.net/npm/jsbarcode@latest/dist/JsBarcode.all.min.js
+// @require     https://cdn.jsdelivr.net/npm/jquery-textrange@latest/jquery-textrange.js
 // @author      charles@openfoodfacts.org
 // ==/UserScript==
 /* eslint-env jquery */
@@ -143,6 +144,7 @@
     //     * Going further
     //       * "XX products without brand that might be from this brand" link
     //   * Add a field to filter Recent Changes results (filter as you type)
+    //   * List view ingredients editing has buttons to insert/replace accented characters for the record's language.
 
     // * DEPLOYMENT
     //   * Tampermonkey suggests to update the extension when one click to updateURL:
@@ -441,6 +443,10 @@ textarea.monospace {
 }
 
 .ul[id^='products_'].search_results a.with_barcode { margin-top: 0; padding-top: 0; }
+
+/* textarea search+replace links */
+.ul[id^='products_'].search_results a.textarea_link { display: inline; height: unset; width: unset; }
+a.textarea_link { margin: 0; padding: 0 0.25rem 0 0.25rem; font-family: Consolas, Lucida Console, monospace; }
 
 `;
 
@@ -912,6 +918,12 @@ textarea.monospace {
         });
         // //$("#display_ingredients_es img").clone().after("#ingredients_text_es");
 
+        // Add search+replace links to ingredients textarea(s), after waiting for document ready.
+        $(function() {
+            //console.log('document ready, adding ingredient links');
+            addSelectionReplaceLinksProduct();
+        });
+
     }
 
 
@@ -984,7 +996,7 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
 .p_actions > button { margin: 0 0 0 0; padding: 0.3rem 0.1rem 0.3rem 0.1rem; width: 6rem; }
 .ingr_del { background-color: #ff2c2c; }
 .ingr_replace { background-color: #805cff; }
-._lang { position: absolute; top:3rem; right:16px; font-size:3rem; opacity:0.4; }
+._lang { position: absolute; bottom:2rem; right:16px; font-size:3rem; opacity:0.4; }
 
 #timed_alert, div.timed_alert { position:fixed; top:0; right:0; font-size: 8rem }
 #timed_alert.failed, div.timed_alert.failed { color: red; }
@@ -1261,6 +1273,10 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                                  '</div>');
 
                 $("#i"+local_code).attr('lang', _lang);
+
+                // add ingredient search+replace links below each ingredients textarea
+                addSelectionReplaceLinksList(local_code, "#i" + local_code);
+
                 // Edit ingredient field inline
                 //$("#i"+local_code).dblclick(function() {
                 //    console.log("dblclick on: "+$(this).attr("id"));
@@ -1503,6 +1519,101 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                 $("div.wrap_ingr > textarea.ingr").removeClass("monospace"); // list view
             }
 
+        });
+    }
+
+
+    const special_characters_per_lang = {
+        // https://en.wikipedia.org/wiki/Catalan_orthography
+        ca: 'ÀàÇçÈèÉéÍíÏïÒòÓóÚúÜü'.split(''),
+        // https://en.wikipedia.org/wiki/Czech_orthography
+        cs: 'ÁáČčĎďÉéĚěÍíŇňÓóŘřŠšŤťÚúŮůÝýŽž'.split(''),
+        // https://en.wikipedia.org/wiki/Danish_orthography
+        da: 'ÆæØøÅå'.split(''),
+        // https://en.wikipedia.org/wiki/German_orthography
+        de: 'ÄäÖöÜüẞß'.split(''),
+        // https://en.wikipedia.org/wiki/Spanish_orthography
+        es: 'ÁáÉéÍíÑñÓóÚúÜüÝý'.split(''),
+        // https://en.wikipedia.org/wiki/Estonian_orthography
+        et: 'ÄäÕõÖöÜü'.split(''),
+        // https://en.wikipedia.org/wiki/Finnish_orthography
+        fi: 'ÅåÄäÖö'.split(''),
+        // https://en.wikipedia.org/wiki/French_orthography
+        fr: 'ÀàÂâÆæÇçÉéÈèÊêËëÎîÏïÔôŒœÙùÛû'.split(''),
+        // https://en.wikipedia.org/wiki/Hungarian_alphabet
+        hu: 'ÁáÉéÍíÓóÖöŐőÚúÜüŰű'.split(''),
+        // https://en.wikipedia.org/wiki/Italian_orthography
+        it: 'ÀàÈèÉéÌìÍíÒòÓóÙùÚú'.split(''),
+        // https://en.wikipedia.org/wiki/Lithuanian_orthography
+        lt: 'ĄąČčĘęĖėĮįŠšŲųŪūŽž'.split(''),
+        // https://en.wikipedia.org/wiki/Latvian_orthography
+        lv: 'ĀāČčĒēĢģĪīĶķĻļŅņŠšŪūŽž'.split(''),
+        // https://en.wikipedia.org/wiki/Polish_orthography
+        pl: 'ĄąĆćĘęŁłŃńÓóŚśŹźŻż'.split(''),
+        // https://en.wikipedia.org/wiki/Portuguese_orthography
+        pt: 'ÀàÁáÂâÃãÇçÉéÊêÍíÓóÔôÕõÚú'.split(''),
+        // https://en.wikipedia.org/wiki/Romanian_alphabet
+        ro: 'ĂăÂâÎîȘșȚț'.split(''),
+        // https://en.wikipedia.org/wiki/Slovak_orthography
+        sk: 'ÁáÄäČčĎďÉéÍíĹĺĽľŇňÓóÔôŔŕŠšŤťÚúÝýŽž'.split(''),
+        // https://en.wikipedia.org/wiki/Swedish_orthography
+        sv: 'ÅåÄäÖö'.split(''),
+        // https://en.wikipedia.org/wiki/Turkish_alphabet
+        tr: 'ÇçĞğIıİiÖöŞşÜü'.split(''),
+    };
+    special_characters_per_lang.ca.push('ŀl');
+    //console.log(special_characters_per_lang);
+
+    /**
+     * In list edit mode, add links under the textarea for replacing selected text with various values.
+     * Initially for easily inserting accented characters for various languages.
+     */
+    function addSelectionReplaceLinksList(code, textarea_id) {
+        const lang = $(textarea_id).attr('lang');
+
+        const entries = special_characters_per_lang[lang];
+        if (!entries) { return; }
+
+        const container_id = 'textarea_links_' + code;
+        if ($("#" + container_id).length) { return; }
+        $(textarea_id).parent().append( $('<span id="' + container_id + '" class="textarea_links"></span>') );
+
+        for (var i = 0; i < entries.length; i++) {
+            const entry = entries[i];
+            const button_id = 'textarea_link_' + code + '_i' + i;
+            $('#' + container_id).append( $('<a id="' + button_id + '" class="textarea_link" href="#">' + entry + '</a> ') );
+            $('#' + button_id).click(function(event){
+                event.preventDefault();
+                $(textarea_id).textrange('replace', entry);
+                $('#p_actions_sav_' + code).addClass("save_needs_clicking");
+            });
+        }
+    }
+
+    /**
+     * In product edit mode, add links under the textarea for replacing selected text with various values.
+     * Initially for easily inserting accented characters for various languages.
+     */
+    function addSelectionReplaceLinksProduct() {
+        $('textarea[id^="ingredients_text_"]').each(function() {
+            const lang = $(this).attr('lang');
+            const textarea_id = $(this).attr('id');
+
+            const entries = special_characters_per_lang[lang];
+            if (!entries) { return; }
+
+            const container_id = 'textarea_links_' + lang;
+            $(this).parent().append( $('<span id="' + container_id + '" class="textarea_links"></span>') );
+
+            for (var i = 0; i < entries.length; i++) {
+                const entry = entries[i];
+                const button_id = 'textarea_link_' + lang + '_i' + i;
+                $('#' + container_id).append( $('<a id="' + button_id + '" class="textarea_link" href="#">' + entry + '</a> ') );
+                $('#' + button_id).click(function(event){
+                    event.preventDefault();
+                    $('#' + textarea_id).textrange('replace', entry);
+                });
+            }
         });
     }
 
