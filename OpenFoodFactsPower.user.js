@@ -937,6 +937,7 @@ p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
         $(function() {
             //console.log('document ready, adding ingredient links');
             addSelectionReplaceLinksProduct();
+            addTagifyLinksBelowBox('categories');
         });
 
     }
@@ -2169,6 +2170,46 @@ p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
             //console.log("productExists( "+urlToCheck+" ) > always - getAllResponseHeaders(): " + xhr.getAllResponseHeaders());
             if(xhr.status) $(id).text(xhr.status);
         });
+    }
+
+
+    /**
+     * Add links to inject defined values into Tagify fields
+     * very greasy hack. it would be easier if each field's tagify instance was accessible.
+     */
+    function addTagifyLinksBelowBox(inputId) {
+
+        let tags = [];
+        switch (inputId) {
+            case 'categories':
+                tags = ['en:Open Beauty Facts', 'en:Non food products'];
+                break;
+        }
+        if (!tags.length) {
+            return;
+        }
+
+        const inputElement = $('#' + inputId);
+        inputElement.after( $('<div id="add_tag_link_' + inputId + '">Inject: </div>') ); // container for links
+        const tagContainer = $('#add_tag_link_' + inputId);
+
+        for (var i = 0; i < tags.length; i++) {
+            const linkId = 'add_tag_link_' + inputId + '_' + i;
+            const atag = tags[i];
+            tagContainer.append( $('<a href="#" id="' + linkId + '" style="margin-right: 1rem;">' + atag.replace(/^en:/, '') + '</a> ') );
+            $('#' + linkId).click(function(event){
+                event.preventDefault();
+                // the actual element being edited isn't the input tag, but a contenteditable span
+                let editableSelector = 'label[for="' + inputId + '"] + tags > span.tagify__input';
+                $(editableSelector).focus(); // make tagify notice we're entering text
+                $(editableSelector).append(atag); // inject text
+                $(editableSelector).blur(); // make tagify register as a completed tag
+                // wait for the dropdown to be generated, then remove it.
+                setTimeout(() => {
+                    $('div.tagify__dropdown').remove();
+                }, 110);
+            });
+        }
     }
 
 
