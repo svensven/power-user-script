@@ -925,7 +925,12 @@ p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
         $(function() {
             //console.log('document ready, adding ingredient links');
             addSelectionReplaceLinksProduct();
+
             addTagifyLinksBelowBox('categories');
+            addTagifyLinksBelowBox('manufacturing_places');
+            addTagifyLinksBelowBox('origins');
+            addTagifyLinksBelowBox('purchase_places');
+
         });
 
     }
@@ -2242,6 +2247,35 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
         switch (inputId) {
             case 'categories':
                 tags = ['en:Open Beauty Facts', 'en:Non food products'];
+                break;
+            case 'manufacturing_places': // not taxonomised
+                tags = [
+                    'United Kingdom',
+                    'Austria',
+                    'Belgium',
+                    'France',
+                    'Germany',
+                    'Netherlands',
+                    'Italy',
+                    'Spain',
+                    'Switerland',
+                ];
+                break;
+            case 'origins':
+                tags = [
+                    'en:United Kingdom',
+                    'en:Austria',
+                    'en:Belgium',
+                    'en:France',
+                    'en:Germany',
+                    'en:Netherlands',
+                    'en:Italy',
+                    'en:Spain',
+                    'en:Switerland',
+                ];
+                break;
+            case 'purchase_places':
+                tags = ['en:United Kingdom'];
                 break;
         }
         if (!tags.length) {
