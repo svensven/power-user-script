@@ -451,6 +451,12 @@ a.textarea_link { margin: 0; padding: 0 0.25rem 0 0.25rem; font-family: Consolas
 /* shrink "we need your help" panel on ingredients analysis */
 p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
 
+/* colour code the sections, to help with the page jumping around */
+#product_characteristics { border-left: 3px solid red; padding-left: 5px; }
+#ingredients { border-left: 3px solid yellow;  padding-left: 5px; }
+#nutrition { border-left: 3px solid green;  padding-left: 5px; }
+#packaging { border-left: 3px solid blue;  padding-left: 5px; }
+
 `;
 
     // apply custom CSS
