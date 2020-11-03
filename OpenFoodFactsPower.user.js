@@ -939,9 +939,11 @@ p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
             addSelectionReplaceLinksProduct();
 
             addTagifyLinksBelowBox('categories');
+            addTagifyLinksBelowBox('labels');
             addTagifyLinksBelowBox('manufacturing_places');
             addTagifyLinksBelowBox('origins');
             addTagifyLinksBelowBox('purchase_places');
+            addTagifyLinksBelowBox('stores');
 
         });
 
@@ -2189,6 +2191,21 @@ p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
             case 'categories':
                 tags = ['en:Open Beauty Facts', 'en:Non food products'];
                 break;
+            case 'labels':
+                tags = [
+                    'en:Vegetarian',
+                    'en:Vegan',
+                    'en:Green Dot',
+                    'en:No preservatives',
+                    'en:No added sugar',
+                    'en:No artificial colors',
+                    'en:No artificial flavors',
+                    'en:No artificial preservatives',
+                    'en:No gluten',
+                    'en:Assured Food Standards',
+                    //'en:',
+                ];
+                break;
             case 'manufacturing_places': // not taxonomised
                 tags = [
                     'United Kingdom',
@@ -2217,6 +2234,9 @@ p.unknown_ingredient + div.callout.panel { max-height: 50px; overflow: hidden; }
                 break;
             case 'purchase_places':
                 tags = ['en:United Kingdom'];
+                break;
+            case 'stores': // not taxonomised
+                tags = ['Aldi', 'Asda', 'Co-op', 'Farmfoods', 'Iceland', 'Lidl', 'M&S', 'Morrisons', 'Sainsbury\'s', 'Tesco', 'Waitrose', ];
                 break;
         }
         if (!tags.length) {
