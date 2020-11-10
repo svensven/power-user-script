@@ -2273,6 +2273,7 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                 break;
             case 'manufacturing_places': // not taxonomised
                 tags = [
+                    'Scotland',
                     'United Kingdom',
                     'Austria',
                     'Belgium',
@@ -2286,6 +2287,7 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                 break;
             case 'origins':
                 tags = [
+                    'en:Scotland',
                     'en:United Kingdom',
                     'en:Austria',
                     'en:Belgium',
@@ -2298,10 +2300,10 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
                 ];
                 break;
             case 'purchase_places':
-                tags = ['en:United Kingdom'];
+                tags = ['en:Scotland', 'en:United Kingdom'];
                 break;
             case 'stores': // not taxonomised
-                tags = ['Aldi', 'Asda', 'Co-op', 'Farmfoods', 'Iceland', 'Lidl', 'M&S', 'Morrisons', 'Sainsbury\'s', 'Tesco', 'Waitrose', ];
+                tags = ['Aldi', 'Asda', 'Co-op', 'Costco', 'Farmfoods', 'Iceland', 'Lidl', 'M&S', 'Morrisons', 'Sainsbury\'s', 'Tesco', 'Waitrose', ];
                 break;
         }
         if (!tags.length) {
