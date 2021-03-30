@@ -1111,7 +1111,12 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
         }
 
         //As target language can be different from the page language we have to create the full URL
-        var URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
+        var URL;
+        if (/beauty/.test(document.location.host)) {
+            URL = "//" + country + ".openbeautyfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
+        } else {
+            URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
+        }
         console.log("CopyListData() analyse url="+URL);
         analyse_form.action = URL;
         //analyse_form.setAttribute("action", URL);
@@ -1147,7 +1152,12 @@ ul#products_match_all > li > a > span { display: table-cell; width:   70%;  vert
         }
 
         //As target language can be different from the page language we have to create the full URL
-        var URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
+        var URL;
+        if (/beauty/.test(document.location.host)) {
+            URL = "//" + country + ".openbeautyfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
+        } else {
+            URL = "//" + country + ".openfoodfacts.org/cgi/test_ingredients_analysis.pl#ingredients_analysis";
+        }
         //analyse_form.setAttribute("action", "/cgi/test_ingredients_analysis.pl");
         console.log("Copydata() analyse url="+URL);
         analyse_form.setAttribute("action", URL);
