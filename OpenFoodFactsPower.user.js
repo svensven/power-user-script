@@ -2,7 +2,7 @@
 // @name        Open Food Facts power user script
 // @description Helps power users in their day to day work. Key "?" shows help. This extension is a kind of sandbox to experiment features that could be added to Open Food Facts website.
 // @namespace   openfoodfacts.org
-// @version     2026-02-02T18:36
+// @version     2026-02-06T14:26
 // @include     https://*.openfoodfacts.org/*
 // @include     https://*.openproductsfacts.org/*
 // @include     https://*.openbeautyfacts.org/*
@@ -66,7 +66,7 @@
     var proPlatform = false;     // TODO: to be included in isPageType()
     const pageType = isPageType(); // test page type
     const corsProxyURL = "";
-    log("2026-02-02T18:36 - mode: " + pageType);
+    log("2026-02-06T14:26 - mode: " + pageType);
 
     // Disable extension if the page is an API result; https://world.openfoodfacts.org/api/v2/product/3222471092705.json
     if (pageType === "api") {
@@ -771,7 +771,8 @@ textarea.monospace {
               "<li>(E): edit product in a new window</li>":
               "") +
             ((pageType === "product view" || pageType === "edit") ?
-              "<li id='api_product_page'>(a): <a href='" + apiProductURL + "'>API product page</a> (json)</li>":
+              "<li id='api_product_page'>(a): <a href='" + apiProductURL + "'>API product page</a> (json)</li>" +
+              "<li>(u): open in https://us.openfoodfacts.org to get standard US nutrition table</li>":
               "") +
             "<li><a href='https://google.com/search?&q="+ code + "'>Product code search on Google</a></li>" +
             "<li>Google Reverse Image search"+
@@ -893,6 +894,12 @@ textarea.monospace {
                 // (I): ingredients
                 if (pageType === "edit" && event.key === 'i') {
                     toggleIngredientsMode();
+                    return;
+                }
+                // (u): open in https://us.openfoodfacts.org to get all standard US nutrition table
+                if (pageType === "edit" && event.key === 'u') {
+                    var editURL = "https://us.openfoodfacts.org/cgi/product.pl?type=edit&code=" + code;
+                    window.open(editURL, "_self"); // edit in current window
                     return;
                 }
                 // (?): open help box
