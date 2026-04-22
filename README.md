@@ -26,6 +26,10 @@ Once your script manager is installed you can go to https://github.com/openfoodf
 Just click on the Raw button and your script manager will ask you if you want to install the script.
 
 # Changelog
+### 2026-04-22T11:40
+* Fix some regressions due to nutrients refactor
+* Fix bug #118 (Pressing the 'i' key breaks the product edit page layout)
+* Fix bug #119 ('e' and 'E' keys do not work with Tampermonkey on Chrome)
 ### 2026-02-06T14:26
 * Added "u" option in edit mode: open a product in https://us.openfoodfacts.org to get standard US nutrition table
 ### 2026-02-02T18:36
